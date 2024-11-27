@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: spring-ai-01-chat
+
+  ai:
+    openai:
+      api-key: sk-8ID6x3TAp2Td789vd2UwsZap4wrriqzuKQ6Q5gjWGEfzXhdE
+      base-url: https://api.feidaapi.com
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.3F
