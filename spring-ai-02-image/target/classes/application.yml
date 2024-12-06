@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-ai-02-image
+
+  ai:
+    openai:
+      api-key: sk-8ID6x3TAp2Td789vd2UwsZap4wrriqzuKQ6Q5gjWGEfzXhdE
+      base-url: https://api.feidaapi.com
+      image:
+        options:
+          model: gpt-4o
+          quality: hd
+          n: 1
+          height: 1024
+          width: 1024
+
+server:
+  port: 8001

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+}
+    .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+    input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+    button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+    button:hover {
+    background-color: #0056b3;
+}
+    .result {
+    margin-top: 20px;
+}
+    img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>AI Image Generator</h1>
+    <p>Enter a description to generate an image:</p>
+    <input type="text" id="description" placeholder="Enter a prompt (e.g., a sunset over a beach)">
+        <button onclick="generateImage()">Generate Image</button>
+        <div class="result" id="result"></div>
+</div>
+
+<script>
+    async function generateImage() {
+    const description = document.getElementById('description').value;
+    const resultDiv = document.getElementById('result');
+
+    if (!description) {
+    resultDiv.innerHTML = '<p style="color: red;">Please enter a description!</p>';
+    return;
+}
+
+    resultDiv.innerHTML = '<p>Generating image, please wait...</p>';
+
+    try {
+    const response = await fetch('http://localhost:8001/ai/image?msg=' + encodeURIComponent(description));
+
+    if (!response.ok) {
+    throw new Error('Failed to generate image. Please try again.');
+}
+
+    const data = await response.json();
+
+    if (data && data.url) {
+    resultDiv.innerHTML = `<img src="${data.url}" alt="Generated Image">`;
+} else {
+    resultDiv.innerHTML = '<p style="color: red;">Failed to retrieve the image. Please try again.</p>';
+}
+} catch (error) {
+    resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+}
+}
+</script>
+</body>
+</html>
